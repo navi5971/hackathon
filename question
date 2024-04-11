@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <math.h>
+
+#define MAX_RANGE 100000
+
+int countDigits(int num) {
+    int count = 0;
+    while (num != 0) {
+        num /= 10;
+        count++;
+    }
+    return count;
+}
+
+int isArmstrong(int num) {
+    int originalNum, remainder, result = 0, n = 0;
+
+    originalNum = num;
+
+    // Count the number of digits
+    n = countDigits(originalNum);
+
+    // Calculate the result
+    while (originalNum != 0) {
+        remainder = originalNum % 10;
+        result += pow(remainder, n);
+        originalNum /= 10;
+    }
+
+    // Check if num is an Armstrong number
+    if (result == num)
+        return 1; // True
+    else
+        return 0; // False
+}
+
+int main() {
+    printf("Armstrong numbers within the range of 0 to %d are:\n", MAX_RANGE);
+    
+    for (int i = 0; i <= MAX_RANGE; i++) {
+        int sum = 0;
+        int temp = i;
+        int n = countDigits(i); // Number of digits of the current number
+        
+        // Calculate the sum of digits raised to the power
+        while (temp != 0) {
+            int digit = temp % 10;
+            sum += pow(digit, n);
+            temp /= 10;
+        }
+        
+        if (sum == i) {
+            printf("%d\n", i);
+        }
+    }
+    return 0;
+}
